@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inserting</title>
+  </head>
+  <body></body>
+  <script>
+    class Node {
+      constructor(value) {
+        this.value = value;
+        this.next = null;
+      }
+    }
+
+    class List {
+      constructor(data) {
+        this.length = 0;
+        if (data) {
+          const newNode = new Node(data);
+          this.head = newNode;
+          this.tail = newNode;
+          this.length = 1;
+        } else {
+          this.head = null;
+          this.tail = null;
+        }
+      }
+
+      addNode(newValue) {
+        const newNode = new Node(newValue);
+        if (this.tail === null) {
+          this.tail = newNode;
+          this.head = newNode;
+        } else {
+          this.tail.next = newNode;
+          this.tail = newNode;
+        }
+        this.length += 1;
+      }
+      printing() {
+        let current = this.head;
+        while (current) {
+          console.log(current.value);
+          current = current.next;
+        }
+      }
+      InsertAnyPosition(value, index) {
+        let newNode = new Node(value);
+        if (index == 1 && this.length == 0) {
+          this.head = newNode;
+          this.tail = newNode;
+          this.length += 1;
+        } else if (index === 0 || index > this.length + 1 || index < 0) {
+          console.log("enter valid index");
+        } else if (index === this.length + 1) {
+          let lead = this.head;
+          let count = 1;
+          while (count <= this.length) {
+            if (count === this.length) {
+              lead.next = newNode;
+              this.tail = newNode;
+              this.length += 1;
+              break;
+            }
+            lead = lead.next;
+            count += 1;
+          }
+        } else if (index === 1) {
+          newNode.next = this.head;
+          this.head = newNode;
+          this.length += 1;
+        } else {
+          let lead = this.head;
+          for (let i = 1; i < index; i++) {
+            if (i === index - 1) {
+              newNode.next = lead.next;
+              lead.next = newNode;
+              this.length += 1;
+              break;
+            }
+            lead = lead.next;
+          }
+        }
+      }
+      deletNode(index) {
+        let count = 1;
+        let lead = this.head;
+        if (this.length === 0) {
+          console.log("List is empty");
+        } else if (index > this.length) {
+          console.log("enter valid index for delete node");
+        } else if (index === 1 && this.length === 1) {
+          this.head = null;
+          this.tail = null;
+          this.length = 0;
+          console.log("deleted");
+        } else if (index === 1) {
+          this.head = lead.next;
+          this.length -= 1;
+          console.log("deleted");
+        } else if (index === this.length) {
+          for (let i = 1; i < this.length; i++) {
+            if (i == index - 1) {
+              console.log("deleted Node:", lead.next);
+              lead.next = null;
+              this.tail = lead;
+              this.length -= 1;
+            }
+            lead = lead.next;
+          }
+        } else {
+          for (let i = 1; i < index; i++) {
+            if (i === index - 1) {
+              lead.next = lead.next.next;
+              this.length -= 1;
+              console.log("deleted index", i + 1);
+            }
+            lead = lead.next;
+          }
+        }
+      }
+      getlength() {
+       return this.length;
+      }
+    }
+
+    let list = new List(200);
+    list.addNode(400);
+    list.addNode(600);
+    list.addNode(700);
+    list.printing();
+    console.log(list);  
+    list.deletNode(3);
+    list.InsertAnyPosition(600,3)
+    list.printing();
+    console.log(list);
+  </script>
+</html>

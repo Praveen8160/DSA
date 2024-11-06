@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class Node {
+      constructor(value) {
+        this.value = value;
+        this.next = null;
+      }
+    }
+    class List {
+      constructor(data) {
+        this.length = 0;
+        if (data) {
+          const newNode = new Node(data);
+          this.head = newNode;
+          this.tail = newNode;
+          this.length += 1;
+        } else {
+          this.head = null;
+          this.tail = null;
+        }
+      }
+      ArrayConvertToList(arr) {
+        this.head = new Node(arr[0]);
+        this.tail = this.head;
+        const lead = this.head;
+        this.length += 1;
+        for (let i = 1; i < arr.length; i++) {
+          let newNode = new Node(arr[i]);
+          this.tail.next = newNode;
+          this.tail = newNode;
+          this.length += 1;
+        }
+      }
+    }
+    const list = new List();
+    list.ArrayConvertToList([20, 30, 40, 50]);
+    console.log(list);
+  </script>
+</html>
